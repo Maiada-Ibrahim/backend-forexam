@@ -126,7 +126,7 @@ id=req.params.id
 
 
  await       chocmodel.findOne({_id: id}).then(function(student){
-            res.send(student);
+            // res.send(student);
         });
     });
 
