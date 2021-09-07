@@ -11,7 +11,12 @@ const axios = require('axios')
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://maiadadb:0000@cluster0-shard-00-00.ii9w9.mongodb.net:27017,cluster0-shard-00-01.ii9w9.mongodb.net:27017,cluster0-shard-00-02.ii9w9.mongodb.net:27017/exam?ssl=true&replicaSet=atlas-114hrc-shard-0&authSource=admin&retryWrites=true&w=majority');
+// mongoose.connect(process.env.mongo);
+
+
 const PORT = 3001;
+
+
 
 const choc = new mongoose.Schema({
 
