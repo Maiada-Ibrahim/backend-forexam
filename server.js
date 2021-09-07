@@ -130,7 +130,7 @@ id=req.params.id
         });
     });
 
-    await  chocmodel.find({ email:email }, function (err, userdata) {
+    await  chocmodel.find({ email:email },async function (err, userdata) {
 
         if (err) { console.log(err) }
 
