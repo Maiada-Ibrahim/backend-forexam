@@ -59,11 +59,9 @@ server.get('/getalldata', async function (req, res, next) {
   
 });
 
-// add a new student to database
 server.post('/adduserdata', async function (req, res, next) {
     let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location } = req.body
     await chocmodel.create(req.body).then(function (student) {
-        // res.send(student);
     }).catch(next);
 
     chocmodel.find({ email }, function (err, userdata) {
@@ -77,7 +75,6 @@ server.post('/adduserdata', async function (req, res, next) {
 
 });
 
-// update a student in the database
 server.put('/updatedata/:id', async   function(req,res,next){
     let { title, imageUrl, email } = req.body
 id=req.params.id
