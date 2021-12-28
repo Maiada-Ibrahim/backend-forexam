@@ -74,7 +74,7 @@ server.post('/adduserdata', async function (req, res, next) {
 });
 
 server.put('/updatedata/:id', async   function(req,res,next){
-    let { title, imageUrl, email } = req.body
+    let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location,statusForThis,sellerEmail} = req.body
 id=req.params.id
  await   chocmodel.findOneAndUpdate({_id: id},req.body).then(async   function(student){
 
