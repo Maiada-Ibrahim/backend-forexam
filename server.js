@@ -8,7 +8,6 @@ require('dotenv').config();
 server.use(express.json());
 const axios = require('axios')
 
-const {handleGetData,handleAddingData,handleGetCollection, handleGetUserCollection,handleDeletingData,handleDeletingCollections} = require('./modules/helper.js');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://maiadadb:0000@cluster0-shard-00-00.ii9w9.mongodb.net:27017,cluster0-shard-00-01.ii9w9.mongodb.net:27017,cluster0-shard-00-02.ii9w9.mongodb.net:27017/seller?ssl=true&replicaSet=atlas-114hrc-shard-0&authSource=admin&retryWrites=true&w=majority');
@@ -73,24 +72,27 @@ server.post('/adduserdata', async function (req, res, next) {
 
 });
 
-server.put('/updatedata/:id', async   function(req,res,next){
+server.put('/updatedata/:id', async  function(req,res,next){
     let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location,statusForThis,sellerEmail} = req.body
-id=req.params.id
- await   chocmodel.findOneAndUpdate({_id: id},req.body).then(async   function(student){
 
- await       chocmodel.findOne({_id: id}).then(function(student){
-        });
+_id=req.params.id
+console.log(_id)
+ await   chocmodel.findOneAndUpdate({_id : req.params.id},req.body).then( function(student){
+
     });
-    await  chocmodel.find({ email:email },async function (err, userdata) {
+    await  chocmodel.find({ email:email }, function (err, userdata) {
 
-        if (err) { console.log(err) }
-        else {
+        try{
             res.send(userdata);
+
+        } catch (err) {
+            console.error(err);
         }
 
     })
 
 });
+
 
 server.delete('/deletedata/:id', async function (req, res, next) {
 let email=req.query.email
@@ -168,13 +170,7 @@ async  function handelgetsellerdata(req, res) {
     res.send("Hello from server!");
 }
 
-class Chocclass {
-    constructor(name, imageUrl, email) {
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.email = email;
-    }
-}
+
 
 server.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
