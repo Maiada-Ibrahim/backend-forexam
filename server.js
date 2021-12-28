@@ -30,8 +30,7 @@ const choc = new mongoose.Schema({
     description:'string',
     time:'string',
     date:'string',
-
-
+    statusForThis:'string'
 });
 const chocmodel = mongoose.model('chockmodel', choc);
 
@@ -60,7 +59,7 @@ server.get('/getalldata', async function (req, res, next) {
 });
 
 server.post('/adduserdata', async function (req, res, next) {
-    let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location } = req.body
+    let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location,statusForThis,sellerEmail } = req.body
     await chocmodel.create(req.body).then(function (student) {
     }).catch(next);
 
@@ -94,13 +93,11 @@ id=req.params.id
 
 });
 
-// delete a student in the database
 server.delete('/deletedata/:id', async function (req, res, next) {
 let email=req.query.email
     let id = req.params.id
 
     await chocmodel.findOneAndDelete({ _id: id }).then(function (student) {
-        // res.send(student);
     });
 
     await  chocmodel.find({ email }, function (err, userdata) {
