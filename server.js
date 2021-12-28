@@ -17,8 +17,6 @@ mongoose.connect('mongodb://maiadadb:0000@cluster0-shard-00-00.ii9w9.mongodb.net
 
 const PORT = 3001;
 
-
-
 const choc = new mongoose.Schema({
     name: 'string',
     email:'string',
@@ -30,7 +28,8 @@ const choc = new mongoose.Schema({
     description:'string',
     time:'string',
     date:'string',
-    statusForThis:'string'
+    statusForThis:'string',
+    sellerEmail:'string'
 });
 const chocmodel = mongoose.model('chockmodel', choc);
 
@@ -59,7 +58,7 @@ server.get('/getalldata', async function (req, res, next) {
 });
 
 server.post('/adduserdata', async function (req, res, next) {
-    let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location,statusForThis,sellerEmail } = req.body
+    let { name, imageUrl, email,prodectName,prodectImg,date,time,description,price,location,statusForThis,sellerEmail} = req.body
     await chocmodel.create(req.body).then(function (student) {
     }).catch(next);
 
@@ -152,6 +151,22 @@ server.get('/Seller', async function (req, res, next) {
     }
 
 });
+server.get('/getsellerdata',handelgetsellerdata)
+async  function handelgetsellerdata(req, res) {
+    let sellerEmail = req.query.email
+    await  chocmodel.find({ sellerEmail:sellerEmail }, function (err, userdata) {
+
+        if (err) { console.log(err) }
+
+        else {
+            res.send(userdata);
+
+
+        }
+    })
+
+    res.send("Hello from server!");
+}
 
 class Chocclass {
     constructor(name, imageUrl, email) {
